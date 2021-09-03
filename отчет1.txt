@@ -1,0 +1,13 @@
+
+#1
+cursor.execute("""Select DISTINCT tblClient.intClientId, tblClient.txtClientSurname,tblClient.txtClientName,tblClient.txtClientSecondName, tblClient.datBirthday, tblClient.txtClientAddress
+                from tblClient""")
+ 
+#2
+cursor.execute(""" SELECT tblAccount.txtAccountNumber, tblAccountType.txtAccountTypeName, tblAccount.datAccountBegin, tblAccount.fltAccountSum
+                   FROM tblAccount, tblAccountType,tblClient
+                   WHERE (tblAccount.intAccountTypeId = tblAccountType.intAccountTypeId) and (tblAccount.intClientId=tblClient.intClientId) and (tblClient.txtClientSurname=?)
+                   and(tblClient.txtClientName=?) and(tblClient.txtClientSecondName=?)""",i1[0],i1[1],i1[2])
+#3
+cursor.execute(""" SELECT sum (fltAccountSum) FROM  tblAccount, tblClient WHERE (tblAccount.intClientId=tblClient.intClientId) and (tblClient.txtClientSurname=?)
+                   and(tblClient.txtClientName=?) and(tblClient.txtClientSecondName=?)""",i1[0],i1[1],i1[2] )				   
